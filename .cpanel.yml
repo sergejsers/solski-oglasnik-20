@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/mojepodjetje7/public_html/oglasnik
+    - export DEPLOYPATH=/home/mojepodjetje7/public_html/oglasnik20
     - /bin/cp -R * $DEPLOYPATH
