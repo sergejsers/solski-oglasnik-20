@@ -1,4 +1,4 @@
-PHP
+
 <?php
 require_once 'db.php';
 // Če se stran naloži brez napake, je PDO povezava uspešna!
