@@ -23,7 +23,8 @@ require_once 'db.php';
             </ul>
             <ul>
                 <li><a href="index.html">Oglasi</a></li>
-                <li><a href="#" role="button">Dodaj oglas</a></li>
+                <!-- PRAVILNO (povezava kaže na datoteko dodaj_oglas.php): -->
+                <li><a href="dodaj_oglas.php" role="button">Dodaj oglas</a></li>
             </ul>
         </nav>
 
