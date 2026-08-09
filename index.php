@@ -1,19 +1,15 @@
-
 <?php
-// 1. Uvozimo povezavo z bazo podatkov
+// 1. Uvoz datoteke za povezavo z bazo
 require_once 'db.php';
-// Če se stran naloži brez napake, je PDO povezava uspešna!
 
 try {
-    // 2. SQL poizvedba: Preberemo oglase in s LEFT JOIN pridružimo naziv kategorije
-    // Uporabimo LEFT JOIN, da se oglas prikaže tudi, če kategorija slučajno ne obstaja!
+    // 2. SQL poizvedba: Zajememo oglase in pridružimo naziv kategorije (LEFT JOIN)
     $sql = "SELECT oglasi.*, COALESCE(kategorije.naziv, 'Brez kategorije') AS kategorija_naziv 
             FROM oglasi 
             LEFT JOIN kategorije ON oglasi.kategorija_id = kategorije.id 
             ORDER BY datum_vnosa DESC";
     
     $stmt = $pdo->query($sql);
-    // Pridobimo vse vrstice iz baze kot asociativno polje
     $oglasi = $stmt->fetchAll();
 } catch (PDOException $e) {
     die("Napaka pri branju podatkov iz baze: " . $e->getMessage());
@@ -24,8 +20,8 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Šolski Oglasnik - Dinamični izpis</title>
-    <!-- Pico.css mikro CSS ogrodje za avtomatsko odzivnost -->
+    <title>Šolski Oglasnik - Pregled oglasov</title>
+    <!-- Pico.css mikro CSS ogrodje -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
 </head>
 <body>
@@ -43,29 +39,40 @@ try {
 
         <section>
             <h2>Aktualni šolski oglasi</h2>
-            <p>Pregled oglasov, ki so dinamično prebrani iz baze podatkov MySQL.</p>
+            <p>Pregled vseh objavljenih oglasov v pregledni vrstični obliki.</p>
         </section>
 
-        <!-- DINAMIČNI IZPIS OGLASOV IZ BAZE -->
-        <div class="grid">
-            <?php if (count($oglasi) > 0): ?>
-                <?php foreach ($oglasi as $oglas): ?>
-                    <article>
-                        <header>
-                            <strong><?= htmlspecialchars($oglas['naslov']) ?></strong>
-                            <br><small>Kategorija: <?= htmlspecialchars($oglas['kategorija_naziv']) ?></small>
-                        </header>
-                        <p><?= htmlspecialchars($oglas['opis']) ?></p>
-                        <footer>
-                            <strong>Cena: <?= number_format($oglas['cena'], 2, ',', '.') ?> €</strong>
-                            <br><small>Objavljeno: <?= $oglas['datum_vnosa'] ?></small>
-                        </footer>
-                    </article>
-                <?php endforeach; ?>
-            <?php else: ?>
+        <!-- PREGLEDEN VRSTIČNI IZPIS (TABELA) -->
+        <?php if (count($oglasi) > 0): ?>
+            <figure>
+                <table role="grid">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width: 25%;">Naslov oglasa</th>
+                            <th scope="col" style="width: 20%;">Kategorija</th>
+                            <th scope="col" style="width: 35%;">Opis</th>
+                            <th scope="col" style="width: 10%;">Cena</th>
+                            <th scope="col" style="width: 10%;">Datum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($oglasi as $oglas): ?>
+                            <tr>
+                                <td><strong><?= htmlspecialchars($oglas['naslov']) ?></strong></td>
+                                <td><small><?= htmlspecialchars($oglas['kategorija_naziv']) ?></small></td>
+                                <td><?= htmlspecialchars($oglas['opis']) ?></td>
+                                <td><strong><?= number_format($oglas['cena'], 2, ',', '.') ?> €</strong></td>
+                                <td><small><?= date('d. m. Y', strtotime($oglas['datum_vnosa'])) ?></small></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </figure>
+        <?php else: ?>
+            <article>
                 <p>V bazi podatkov trenutno ni objavljenih oglasov.</p>
-            <?php endif; ?>
-        </div>
+            </article>
+        <?php endif; ?>
     </main>
 </body>
 </html>
