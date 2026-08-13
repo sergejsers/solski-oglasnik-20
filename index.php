@@ -1,4 +1,9 @@
 <?php
+// index.php iz 1. koraka Sklopa 3.2.
+// Dodana funkcionalnost iskanja in filtriranja na index.php.
+
+
+
 // 1. Uvoz datoteke za povezavo z bazo podatkov
 require_once 'db.php';
 
