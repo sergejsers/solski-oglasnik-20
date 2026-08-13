@@ -1,6 +1,7 @@
 <?php
 // poglej_oglas.php pregled oglasa
 
+
 // 1. Uvoz datoteke za povezavo z bazo podatkov
 require_once 'db.php';
 
