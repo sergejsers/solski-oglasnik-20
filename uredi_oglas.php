@@ -1,6 +1,7 @@
 <?php
 // uredi_oglas.php - posodabljanje oglasov
 
+
 // 1. Uvoz datoteke za povezavo z bazo podatkov
 require_once 'db.php';
 
