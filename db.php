@@ -3,9 +3,9 @@
 
 $host = 'localhost';
 // Vnesite točno ime baze iz vašega cPanela (npr. uporabnik_oglasnik_db)
-$db   = 'mojepodjetje7_solski_oglasnik20'; 
+$db   = 'serlah_solski_oglasnik20'; 
 // Vnesite uporabnika baze, ki ste mu dodelili pravice v cPanelu
-$user = 'mojepodjetje7_oglasnik_user'; 
+$user = 'serlah_oglasnik20_user'; 
 // Vnesite geslo uporabnika baze
 $pass = 'rps2026!'; 
 $charset = 'utf8mb4';
